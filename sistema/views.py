@@ -6,3 +6,6 @@ def home(request):
 
 def professores_list(request):
     return render(request, 'professores/professores.html')
+
+def cursos(request):
+    return render(request, 'cursos.html')

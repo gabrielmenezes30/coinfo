@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Lista de Professores{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-start">Lista que compõem a COINFO</h2>
+    <div class="row mt-4">
+      
+        <div class="col-md-3 mb-4">
+            <div class="card">
+               
+                <img src="{% static 'assets/profile_pic_professor.jpg' %}" alt="" width="100">
+
+                
+                <div class="card-body">
+                    <h5 class="card-title">José</h5>
+                    <p class="card-text">Agronomo</p>
+                </div>
+            </div>
+        </div>
+     
+    </div>
+</div>
+{% endblock %}

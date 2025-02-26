@@ -4,14 +4,14 @@
     box-sizing: border-box;
 }
 
-nav{
-    width: 100%;
-    padding: 30px;
-    background-color: rgb(0, 85, 197);
-    display: flex;
+.custom-navbar {
+    background-color: #050487 !important;
 }
 
-nav ul{
-    display: flex;
-    flex: end;
+.custom-navbar .nav-link {
+    color: white !important;
+}
+
+.custom-navbar .nav-link:hover {
+    color: #d4d4ff !important;
 }

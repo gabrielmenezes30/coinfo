@@ -6,49 +6,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <title>{% block title %} {% endblock %}</title>
+    <title>{% block title %}COINFO{% endblock %}</title>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-info fw-semibold">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="{% url 'home' %}">
-                    <img src="{% static 'assets/coinfo_png.png' %}" alt="Logo COINFO" width="100">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+            <div class="container">
+                <!-- Logo -->
+                <a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}">
+                    <img src="{% static 'assets/coinfo_png.png' %}" alt="Logo COINFO" width="90" class="me-2">
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+
+                <!-- Botão Mobile -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
+                <!-- Itens do Menu -->
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav me-auto">
+                    <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'home' %}">Home</a>
+                            <a class="nav-link text-white fw-semibold" href="{% url 'home' %}">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'cursos' %}">Cursos</a>
+                            <a class="nav-link text-white fw-semibold" href="{% url 'cursos' %}">Cursos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'professores_list' %}">Professores</a>
+                            <a class="nav-link text-white fw-semibold" href="{% url 'professores_list' %}">Professores</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Projetos</a>
+                            <a class="nav-link text-white fw-semibold" href="#">Projetos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Infraestrutura</a>
+                            <a class="nav-link text-white fw-semibold" href="#">Infraestrutura</a>
                         </li>
                     </ul>
 
-                    <ul class="navbar-nav">
+                    <!-- Login / Logout -->
+                    <ul class="navbar-nav ms-lg-3">
                         {% if user.is_authenticated %}
                         <li class="nav-item">
                             <form method="post" action="{% url 'logout' %}">
                                 {% csrf_token %}
-                                <button type="submit" class="btn btn-danger nav-link text-white">Logout</button>
+                                <button type="submit" class="btn btn-danger text-white fw-semibold">Logout</button>
                             </form>
                         </li>
-                        {% else %}
-                            <li class="nav-item">
-                                <a class="nav-link btn btn-success text-white" href="{% url 'login' %}">Login</a>
-                            </li>
                         {% endif %}
                     </ul>
                 </div>

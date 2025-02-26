@@ -2,42 +2,47 @@
 
 {% block content %}
 
-
 <div class="container mt-4">
     <div class="row mt-5">
         <div class="col-md-6">
-            <h4 class="text-primary fw-bold ">História da COINFO</h4>
+            <h4 class="text-primary fw-bold">História da COINFO</h4>
             <div class="card shadow-sm">
-                <div class="card-body ">
+                <div class="card-body">
                     <p>Aqui vai um texto contando a história da COINFO...</p>
                 </div>
             </div>
         </div>
+
         <div class="col-md-6">
-            <h4 class="text-primary fw-bold ">Notícias</h4>
-            <div class="row">
-                <div class="col-12 mb-3 ">
-                    <div class="card shadow-sm ">
-                        <div class="card-body ">Notícia 1</div>
+            {% if user.is_staff or user.is_superuser %}
+                <a href="{% url 'cadastrar_noticia' %}" class="btn btn-success mb-3">+ Cadastrar Notícia</a>
+            {% endif %}
+
+            <h4 class="text-primary fw-bold">Notícias</h4>
+
+            {% for noticia in noticias %}
+                <div class="card mb-4 border-0 shadow-sm">
+                    <div class="row g-0">
+                        <!-- Imagem da notícia -->
+
+                        
+                        <!-- Texto da notícia -->
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <p class="text-muted text-uppercase mb-1">Últimas notícias</p>
+                                <h5 class="text-danger fw-bold">{{ noticia.titulo }}</h5>
+                                <p class="text-muted">{{ noticia.conteudo|truncatechars:100 }}</p>
+                                <a href="{% url 'detalhe_noticia' noticia.id %}" class="text-primary">Leia mais</a>
+                                <p class="text-muted small mt-2">Publicado há {{ noticia.data_publicacao|timesince }}</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-12 mb-3">
-                    <div class="card shadow-sm">
-                        <div class="card-body">Notícia 2</div>
-                    </div>
-                </div>
-                <div class="col-12 mb-3">
-                    <div class="card shadow-sm">
-                        <div class="card-body">Notícia 3</div>
-                    </div>
-                </div>
-                <div class="col-12 mb-3">
-                    <div class="card shadow-sm">
-                        <div class="card-body">Notícia 4</div>
-                    </div>
-                </div>
-            </div>
+            {% empty %}
+                <p class="text-muted">Nenhuma notícia disponível no momento.</p>
+            {% endfor %}
         </div>
     </div>
 </div>
+
 {% endblock %}

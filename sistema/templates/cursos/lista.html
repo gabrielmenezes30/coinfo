@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Lista de Cursos</h2>
+
+    {% if user.is_authenticated and user.is_staff %}
+        <a href="{% url 'criar_curso' %}" class="btn btn-primary mb-3">Cadastrar Novo Curso</a>
+    {% endif %}
+
+    <ul class="list-group">
+        {% for curso in cursos %}
+            <li class="list-group-item">
+                <strong>{{ curso.nome }}</strong>
+            </li>
+        {% empty %}
+            <li class="list-group-item">Nenhum curso cadastrado.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Lista de Infraestrutura</h2>
+
+    {% if user.is_authenticated and user.is_staff %}
+        <a href="{% url 'criar_infraestrutura' %}" class="btn btn-primary mb-3">Cadastrar Nova Infraestrutura</a>
+    {% endif %}
+
+    <ul class="list-group">
+        {% for item in infraestrutura %}
+            <li class="list-group-item">
+                <strong>{{ item.nome }}</strong> - {{ item.descricao }}
+            </li>
+        {% empty %}
+            <li class="list-group-item">Nenhuma infraestrutura cadastrada.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

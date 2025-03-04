@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Lista de Projetos</h2>
+
+    {% if user.is_authenticated and user.is_staff %}
+        <a href="{% url 'criar_projeto' %}" class="btn btn-primary mb-3">Cadastrar Novo Projeto</a>
+    {% endif %}
+
+    <ul class="list-group">
+        {% for projeto in projetos %}
+            <li class="list-group-item">
+                <strong>{{ projeto.nome }}</strong> - {{ projeto.descricao }}
+                <br>
+                <small><strong>Professor responsável:</strong> {{ projeto.professor.nome }}</small>
+            </li>
+        {% empty %}
+            <li class="list-group-item">Nenhum projeto cadastrado.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

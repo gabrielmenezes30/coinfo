@@ -21,3 +21,35 @@ class Noticia(models.Model):
 
     def __str__(self):
         return self.titulo
+
+
+# 🏫 Curso
+class Curso(models.Model):
+    nome = models.CharField(max_length=100)
+    modalidade = models.CharField(max_length=50, default="Superior")
+    link_atas_nde = models.URLField(blank=True, null=True)
+
+    def __str__(self):
+        return self.nome
+
+
+# 📚 Projeto
+class Projeto(models.Model):
+    titulo = models.CharField(max_length=150)
+    link = models.URLField(blank=True, null=True)
+    descricao = models.TextField()
+    professor = models.ForeignKey(User, on_delete=models.CASCADE, related_name="projetos")
+    imagem = models.ImageField(upload_to='projetos/', blank=True, null=True)
+
+    def __str__(self):
+        return self.titulo
+
+
+# 🏢 Infraestrutura
+class Infraestrutura(models.Model):
+    titulo = models.CharField(max_length=100)
+    descricao = models.TextField()
+    imagem = models.ImageField(upload_to='infraestrutura/', blank=True, null=True)
+
+    def __str__(self):
+        return self.titulo

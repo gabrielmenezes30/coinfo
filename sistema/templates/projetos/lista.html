@@ -11,9 +11,9 @@
     <ul class="list-group">
         {% for projeto in projetos %}
             <li class="list-group-item">
-                <strong>{{ projeto.nome }}</strong> - {{ projeto.descricao }}
+                <strong>{{ projeto.titulo }}</strong> - {{ projeto.descricao }}
                 <br>
-                <small><strong>Professor responsável:</strong> {{ projeto.professor.nome }}</small>
+                <small><strong>Professor responsável:</strong> {{ projeto.professor }}</small>
             </li>
         {% empty %}
             <li class="list-group-item">Nenhum projeto cadastrado.</li>

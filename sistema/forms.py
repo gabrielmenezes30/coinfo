@@ -22,7 +22,7 @@ class CursoForm(forms.ModelForm):
 class ProjetoForm(forms.ModelForm):
     class Meta:
         model = Projeto
-        fields = ['titulo', 'link', 'descricao', 'professor', 'imagem']
+        fields = ['titulo', 'link', 'descricao', 'imagem']
 
 # 📌 Formulário para Infraestrutura
 class InfraestruturaForm(forms.ModelForm):

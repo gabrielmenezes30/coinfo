@@ -4,17 +4,14 @@
 <div class="container mt-4">
     <h2>Cadastrar Projeto</h2>
     
-    {% if user.professor.senha %}
+    
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit" class="btn btn-success">Cadastrar</button>
-            <a href="{% url 'projetos_list' %}" class="btn btn-secondary">Cancelar</a>
+            <a href="{% url 'listar_projetos' %}" class="btn btn-secondary">Cancelar</a>
         </form>
-    {% else %}
-        <div class="alert alert-danger">
-            <strong>Atenção!</strong> Você precisa ter uma senha cadastrada para registrar um projeto.
-        </div>
-    {% endif %}
+
+   
 </div>
 {% endblock %}

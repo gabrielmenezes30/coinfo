@@ -4,6 +4,9 @@
 <div class="container text-center">
     <h1 class="my-4">Bem-vindo ao Dashboard</h1>
 
+    {% if is_professor %}
+        <a href="{% url 'criar_projeto' %}" class="btn btn-info">Criar projeto</a>
+    {% endif %}
     <h2 class="mb-4">Gerenciar Permissões</h2>
 
     <!-- Formulário de Pesquisa -->
@@ -14,9 +17,7 @@
         </div>
     </form>
 
-    {% if is_professor %}
-        <p class="alert alert-info">Sou professor</p>
-    {% endif %}
+   
 
     {% if query %}
         <div class="table-responsive">

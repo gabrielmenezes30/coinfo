@@ -16,7 +16,7 @@
 
         <!-- Seção de Notícias -->
         <div class="col-md-6">
-            {% if user.is_staff or user.is_superuser %}
+            {% if is_admin %}
                 <a href="{% url 'cadastrar_noticia' %}" class="btn btn-success mb-3">+ Cadastrar Notícia</a>
             {% endif %}
 

@@ -56,7 +56,7 @@ def detalhe_noticia(request, pk):
 # 📌 HOME (EXIBE AS 3 ÚLTIMAS NOTÍCIAS)
 def home(request):
 
-    is_admin = request.user.is_staff or request.user.is_superuser
+    is_admin = request.user.is_superuser
     is_professor = request.user.groups.filter(name='Professores').exists()
     noticias = Noticia.objects.filter(status='publicado', ativacao='ativada').order_by('-data_publicacao')[:3]
 
@@ -92,19 +92,24 @@ def projetos_list(request):
 
 # 📌 CADASTRAR PROJETO (Apenas Professores)
 @login_required
-@user_passes_test(is_professor)
+@user_passes_test(is_admin)
+@user_passes_test(lambda u: u.groups.filter(name='Professores').exists())  # Garantir que o usuário é professor
 def cadastrar_projeto(request):
     if request.method == "POST":
         form = ProjetoForm(request.POST, request.FILES)
         if form.is_valid():
             projeto = form.save(commit=False)
-            projeto.professor = request.user
+            projeto.professor = request.user  # Define o professor como o usuário logado
             projeto.save()
             return redirect('listar_projetos')
     else:
         form = ProjetoForm()
 
-    return render(request, 'projetos/cadastrar.html', {'form': form})
+    return render(request, 'projetos/cadastrar.html', {
+        'form': form,
+        'is_admin': is_admin,
+        'is_professor': is_professor,
+    })
 
 # 📌 LISTAR INFRAESTRUTURA
 def infraestrutura_list(request):

@@ -4,6 +4,20 @@ from django.urls import reverse_lazy
 from .forms import NoticiaForm, CursoForm, ProjetoForm, InfraestruturaForm
 from .models import Noticia, Curso, Projeto, Infraestrutura
 from django.contrib.auth.models import User, Group
+from django.contrib.auth import login, authenticate
+from .forms import RegistroForm
+
+
+def registro(request):
+    if request.method == 'POST':
+        form = RegistroForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('home')  # Redireciona para a home após o registro
+    else:
+        form = RegistroForm()
+    return render(request, 'usuarios/registro.html', {'form': form})
 
 # Verifica se o usuário é admin
 def is_admin(user):
@@ -41,8 +55,16 @@ def detalhe_noticia(request, pk):
 
 # 📌 HOME (EXIBE AS 3 ÚLTIMAS NOTÍCIAS)
 def home(request):
+
+    is_admin = request.user.is_staff or request.user.is_superuser
+    is_professor = request.user.groups.filter(name='Professores').exists()
     noticias = Noticia.objects.filter(status='publicado', ativacao='ativada').order_by('-data_publicacao')[:3]
-    return render(request, 'index.html', {'noticias': noticias})
+
+    return render(request, 'index.html', {
+        'noticias': noticias,
+        'is_admin': is_admin,
+        'is_professor': is_professor,
+        })
 
 # 📌 LISTAR CURSOS
 def cursos_list(request):

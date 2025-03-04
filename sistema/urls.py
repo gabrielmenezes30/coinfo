@@ -9,7 +9,7 @@ urlpatterns = [
 
     # Notícias
     path('noticias/', lista_noticias, name='lista_noticias'),
-    path('noticias/<int:pk>/', detalhe_noticia, name='detalhe_noticia'),
+    path('noticia/<int:pk>/', detalhe_noticia, name='detalhe_noticia'),
     path('noticias/cadastrar/', cadastrar_noticia, name='cadastrar_noticia'),
 
     # Login e Logout

@@ -2,12 +2,13 @@
 
 {% block content %}
     <h2>Cadastrar Notícia</h2>
-    
+
     <form method="post">
         {% csrf_token %}
+        {{ form.media }}  {# Garante que os arquivos JS e CSS do Summernote sejam carregados #}
         {{ form.as_p }}
         <button type="submit">Salvar Notícia</button>
     </form>
-    
+
     <a href="{% url 'lista_noticias' %}">Voltar para a lista de notícias</a>
 {% endblock %}

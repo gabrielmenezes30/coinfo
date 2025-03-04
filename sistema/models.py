@@ -19,6 +19,5 @@ class Noticia(models.Model):
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='rascunho')
     ativacao = models.CharField(max_length=10, choices=ATIVACAO_CHOICES, default='ativada')
 
-
     def __str__(self):
         return self.titulo

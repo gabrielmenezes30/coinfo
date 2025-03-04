@@ -2,7 +2,6 @@
 {% load static %}
 
 {% block content %}
-
 <div class="container mt-5">
     <div class="row">
         <!-- Seção de História -->
@@ -26,11 +25,11 @@
             {% for noticia in noticias %}
             <div class="card mb-4 border-0 shadow-sm rounded-3 bg-light">
                 <div class="card-body">
-                    <p class="text-muted text-uppercase fw-semibold small mb-2">Últimas Notícias</p>
                     <h4 class="text-dark fw-bold">{{ noticia.titulo }}</h4>
-                    <p class="text-secondary">{{ noticia.conteudo|truncatechars:120 }}</p>
+                    <p class="text-muted small mt-2"><i class="fas fa-clock"></i>🕐
+                        
+                         Publicado em {{ noticia.data_publicacao|date:"d/m/Y H:i" }}</p>
                     <a href="{% url 'detalhe_noticia' noticia.id %}" class="btn btn-outline-success btn-sm">Leia mais</a>
-                    <p class="text-muted small mt-2"><i class="fas fa-clock"></i> Publicado há {{ noticia.data_publicacao|timesince }}</p>
                 </div>
             </div>
             {% empty %}
@@ -39,5 +38,4 @@
         </div>
     </div>
 </div>
-
 {% endblock %}

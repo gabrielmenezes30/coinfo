@@ -32,8 +32,9 @@ def detalhe_noticia(request, pk):
     return render(request, 'noticias/detalhe.html', {'noticia': noticia})
 
 def home(request):
-    noticias = Noticia.objects.filter(status='publicado', ativacao='ativada')
+    noticias = Noticia.objects.filter(status='publicado', ativacao='ativada').order_by('-data_publicacao')[:3]
     return render(request, 'index.html', {'noticias': noticias})
+
 
 
 def professores_list(request):

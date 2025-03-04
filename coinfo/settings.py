@@ -38,7 +38,22 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'sistema',
+    'django_summernote',
 ]
+
+SUMMERNOTE_CONFIG = {
+    'summernote': {
+        'cleaner': True,  # Habilita a limpeza de HTML
+        'remove_scripts': True,  # Remove scripts maliciosos
+        'codeviewFilter': True,  # Filtra código no modo de edição
+        'codeviewIframeFilter': True  # Bloqueia iframes inseguros
+    },  
+
+    'iframe': False,
+    'width': '100%',
+    'height': '400px',
+}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

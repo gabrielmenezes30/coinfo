@@ -32,6 +32,9 @@ def is_professor(user):
 @login_required
 @user_passes_test(is_admin)
 def cadastrar_noticia(request):
+
+    is_admin = request.user.is_superuser
+
     if request.method == "POST":
         form = NoticiaForm(request.POST)
         if form.is_valid():
@@ -42,7 +45,10 @@ def cadastrar_noticia(request):
     else:
         form = NoticiaForm()
     
-    return render(request, 'noticias/cadastrar.html', {'form': form})
+    return render(request, 'noticias/cadastrar.html', {
+        'form': form,
+        'is_admin':is_admin
+        })
 
 
 
@@ -102,6 +108,9 @@ def projetos_list(request):
 @login_required
 @user_passes_test(lambda u: u.groups.filter(name='Professores').exists())  # Garantir que o usuário é professor
 def cadastrar_projeto(request):
+
+    is_professor = request.user.groups.filter(name='Professores').exists()
+
     if request.method == "POST":
         form = ProjetoForm(request.POST, request.FILES)
         if form.is_valid():
@@ -114,6 +123,7 @@ def cadastrar_projeto(request):
 
     return render(request, 'projetos/cadastrar.html', {
         'form': form,
+        'is_professor':is_professor,
     })
 
 # 📌 LISTAR INFRAESTRUTURA

@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'sidebar_base.html' %}
 
 {% block content %}
     <h2>Cadastrar Notícia</h2>
@@ -7,8 +7,7 @@
         {% csrf_token %}
         {{ form.media }}  {# Garante que os arquivos JS e CSS do Summernote sejam carregados #}
         {{ form.as_p }}
-        <button type="submit">Salvar Notícia</button>
+        <button type="submit" class="btn btn-success">Salvar Notícia</button>
     </form>
 
-    <a href="{% url 'lista_noticias' %}">Voltar para a lista de notícias</a>
 {% endblock %}

@@ -10,7 +10,12 @@ class NoticiaForm(forms.ModelForm):
         fields = ['titulo', 'conteudo', 'status', 'ativacao']
         widgets = {
             'conteudo': SummernoteWidget(),  # Aplica o editor Summernote ao campo 'conteudo'
+            'status': forms.Select(attrs={'class': 'form-control'}),
+            'ativacao': forms.Select(attrs={'class': 'form-control'}),
         }
+
+    # Adicionando o Bootstrap aos outros campos manualmente
+    titulo = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
 
 # 📌 Formulário para Curso
 class CursoForm(forms.ModelForm):
@@ -23,7 +28,12 @@ class ProjetoForm(forms.ModelForm):
     class Meta:
         model = Projeto
         fields = ['titulo', 'link', 'descricao', 'imagem']
-
+        widgets = {
+            'titulo': forms.TextInput(attrs={'class': 'form-control'}),
+            'link': forms.TextInput(attrs={'class': 'form-control'}),
+            'descricao': forms.Textarea(attrs={'class': 'form-control'}),
+            'imagem': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+        }
 # 📌 Formulário para Infraestrutura
 class InfraestruturaForm(forms.ModelForm):
     class Meta:

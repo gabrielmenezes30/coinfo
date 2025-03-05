@@ -1,0 +1,20 @@
+{% extends 'sidebar_base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Notícias Desativadas</h2>
+    <div class="list-group">
+        {% for noticia in noticias_desativadas %}
+            <div class="list-group-item">
+                <h5 class="mb-1">{{ noticia.titulo }}</h5>
+                <p class="mb-1">{{ noticia.descricao }}</p>
+                <small>{{ noticia.data_publicacao }}</small>
+            </div>
+        {% empty %}
+            <div class="alert alert-warning" role="alert">
+                Não há notícias desativadas no momento.
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

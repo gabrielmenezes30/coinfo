@@ -1,28 +1,35 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User, Group, Permission
+from sistema.models import Noticia
 
 # Função para verificar se o usuário é admin
 def is_admin(user):
     return user.is_authenticated and user.is_staff
 
 
-
 @login_required
 @user_passes_test(is_admin)
 def index(request):
+    query = request.GET.get('q', '')  
+    usuarios = User.objects.filter(username__icontains=query) if query else []  
 
-    query = request.GET.get('q', '')  # Pega o termo de pesquisa
-    usuarios = User.objects.filter(username__icontains=query) if query else []  # Filtra usuários apenas se houver pesquisa
-    is_real_admin = request.user.is_staff and not request.user.groups.filter(name='Professores').exists()
+    is_admin = request.user.is_staff and not request.user.groups.filter(name='Professores').exists()
     is_professor = request.user.groups.filter(name='Professores').exists()
-    
+
+    # Filtrando notícias desativadas e em rascunho
+    noticias_desativadas = Noticia.objects.filter(ativacao='desativada').order_by('-data_publicacao')
+    noticias_rascunho = Noticia.objects.filter(status='rascunho').order_by('-data_publicacao')
+
     return render(request, 'dashboard/index.html', {
-        'usuarios': usuarios,
-        'is_real_admin': is_real_admin,
+        'usuarios': usuarios,   
+        'is_admin': is_admin,
         'is_professor': is_professor,
-        'query': query
+        'query': query,
+        'noticias_desativadas': noticias_desativadas,
+        'noticias_rascunho': noticias_rascunho
     })
+
 
 @login_required
 @user_passes_test(is_admin)
@@ -69,4 +76,12 @@ def remover_professor(request, user_id):
     user.user_permissions.remove(*permissoes)
 
     return redirect('dashboard')
+
+def noticias_desativadas(request):
+    noticias_desativadas = Noticia.objects.filter(ativacao='desativada').order_by('-data_publicacao')
+    is_admin = request.user.is_staff and not request.user.groups.filter(name='Professores').exists()
+    return render(request, 'dashboard/noticias_desativadas.html', {
+        'noticias_desativadas':noticias_desativadas,
+        'is_admin':is_admin,
+    })
 

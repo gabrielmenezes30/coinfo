@@ -7,14 +7,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">  <!-- Arquivo CSS personalizado -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <title>{% block title %} {% endblock %}</title>
 </head>
 <body>
     <header class="bg-light">
         <div class="container d-flex justify-content-between align-items-center py-2">
+            <!-- Logo -->
             <div class="d-flex align-items-center">
                 <a href="{% url 'home' %}">
                     <img src="{% static 'assets/coinfo_png.png' %}" alt="Logo COINFO" width="120">
+                </a>
+            </div>
+        
+            <!-- Redes Sociais -->
+            <div class="d-flex gap-3">
+                <a href="https://facebook.com/seu_perfil" target="_blank" class="text-dark">
+                    <i class="fab fa-facebook fa-lg"></i>
+                </a>
+                <a href="https://instagram.com/seu_perfil" target="_blank" class="text-dark">
+                    <i class="fab fa-instagram fa-lg"></i>
+                </a>
+                <a href="https://twitter.com/seu_perfil" target="_blank" class="text-dark">
+                    <i class="fab fa-twitter fa-lg"></i>
+                </a>
+                <a href="https://linkedin.com/in/seu_perfil" target="_blank" class="text-dark">
+                    <i class="fab fa-linkedin fa-lg"></i>
                 </a>
             </div>
         </div>

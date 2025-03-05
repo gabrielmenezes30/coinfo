@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>Dashboard</title>
+    <style>
+        body {
+            display: flex;
+        }
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #f8f9fa;
+            padding: 15px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+        .content {
+            margin-left: 260px; /* Espaço para o sidebar */
+            padding: 20px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h4 class="text-success fw-bold">
+            <img src="{% static 'assets/coinfo_png.png' %}" alt="Logo COINFO" width="120">
+        </h4>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+            <li class="nav-item">
+                <a href="{% url 'dashboard' %}" class="nav-link text-dark">
+                    <i class="fas fa-home"></i> Início
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'lista_noticias' %}" class="nav-link text-dark">
+                    <i class="fas fa-newspaper"></i> Notícias
+                </a>
+            </li>
+            
+            {% if is_admin %}
+            <li>
+                <a href="{% url 'cadastrar_noticia' %}" class="nav-link text-success">
+                    <i class="fas fa-plus"></i> Criar Notícia
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'noticias_desativadas' %}" class="nav-link text-danger">
+                    <i class="fas fa-newspaper"></i> Notícias desativadas
+                </a>
+            </li>
+            {% endif %}
+
+            {% if is_professor %}
+            <li>
+                <a href="{% url 'criar_projeto' %}" class="nav-link text-info">
+                    <i class="fas fa-newspaper"></i> Cadastrar projeto
+                </a>
+            </li>
+            {%  endif %}
+        </ul>
+        <hr>
+        <div>
+            
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+               <button class="btn btn-outline-danger btn-sm">Sair</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Conteúdo Dinâmico -->
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+</body>
+</html>

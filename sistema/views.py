@@ -6,6 +6,7 @@ from .models import Noticia, Curso, Projeto, Infraestrutura
 from django.contrib.auth.models import User, Group
 from django.contrib.auth import login, authenticate
 from .forms import RegistroForm
+from django.core.paginator import Paginator
 
 
 def registro(request):
@@ -21,7 +22,7 @@ def registro(request):
 
 # Verifica se o usuário é admin
 def is_admin(user):
-    return user.is_staff or user.is_superuser
+    return user.is_superuser
 
 # Verifica se o usuário é professor
 def is_professor(user):
@@ -43,9 +44,16 @@ def cadastrar_noticia(request):
     
     return render(request, 'noticias/cadastrar.html', {'form': form})
 
+
+
 def lista_noticias(request):
-    noticias = Noticia.objects.all()
-    return render(request, 'noticias/lista.html', {'noticias': noticias})
+    noticias = Noticia.objects.filter(status='publicado', ativacao='ativada').order_by('-data_publicacao')
+    paginator = Paginator(noticias, 10)  # Exibir 10 notícias por página
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
+    return render(request, 'noticias/lista.html', {'page_obj': page_obj})
+
 
 # 📌 DETALHAR NOTÍCIA
 def detalhe_noticia(request, pk):
@@ -92,7 +100,6 @@ def projetos_list(request):
 
 # 📌 CADASTRAR PROJETO (Apenas Professores)
 @login_required
-@user_passes_test(is_admin)
 @user_passes_test(lambda u: u.groups.filter(name='Professores').exists())  # Garantir que o usuário é professor
 def cadastrar_projeto(request):
     if request.method == "POST":
@@ -107,8 +114,6 @@ def cadastrar_projeto(request):
 
     return render(request, 'projetos/cadastrar.html', {
         'form': form,
-        'is_admin': is_admin,
-        'is_professor': is_professor,
     })
 
 # 📌 LISTAR INFRAESTRUTURA
@@ -129,3 +134,17 @@ def cadastrar_infraestrutura(request):
         form = InfraestruturaForm()
     
     return render(request, 'infraestrutura/cadastrar.html', {'form': form})
+
+def perfil_usuario(request):
+    # Pega o usuário logado
+    usuario = request.user
+
+    # Verifica se o usuário é admin ou professor
+    is_admin = usuario.is_superuser
+    is_professor = usuario.groups.filter(name='Professores').exists()
+
+    return render(request, 'usuarios/perfil.html', {
+        'usuario': usuario,
+        'is_admin': is_admin,
+        'is_professor': is_professor,
+    })

@@ -49,11 +49,9 @@
                                 <button type="submit" class=" btn btn-danger text-white">Logout</button>
                             </form>
                         </li>
-                        {% if is_admin or is_professor %}
-                        <li class="nav-item">
-                            <a href="{% url 'dashboard' %}" class="ms-2 btn btn-warning">Acessar Dashboard</a>
+                        <li>
+                            <a href="{% url 'perfil_usuario' %}" class="ms-3 btn btn-primary">🙍‍♂️ Perfil</a>
                         </li>
-                        {% endif %}
                         {% else %}
                         <li class="nav-item">
                             <a class="nav-link btn btn-light text-dark" href="{% url 'login' %}">Login</a>

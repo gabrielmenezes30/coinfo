@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Lista de Notícias</h2>
+
+    <!-- Lista de notícias -->
+    <ul class="list-group">
+        {% for noticia in page_obj %}
+        <a href="{% url 'detalhe_noticia' noticia.id %}" class="text-decoration-none text-dark">
+            <li class="list-group-item mb-3 shadow-sm border rounded-3 p-4">
+                    <strong class="d-block mb-2" style="font-size: 1.25rem; font-weight: 600;">{{ noticia.titulo }}</strong>
+                    <p class="text-muted" style="font-size: 1rem; line-height: 1.6;">
+                        {{ noticia.conteudo|slice:":200"|safe }}...
+                    </p>
+                    <small class="text-muted" style="font-size: 0.875rem;">
+                        Autor: {{ noticia.autor.get_full_name|default:noticia.autor.username }} | 
+                        Publicado em: {{ noticia.data_publicacao }}
+                    </small>
+                </li>
+            </a>
+        {% empty %}
+            <li class="list-group-item">Nenhuma notícia disponível no momento.</li>
+        {% endfor %}
+    </ul>
+
+    <!-- Navegação de página -->
+    {% if page_obj.has_other_pages %}
+        <div class="d-flex justify-content-between mt-4">
+            {% if page_obj.has_previous %}
+                <a href="?page=1" class="btn btn-outline-secondary btn-sm">Primeira</a>
+                <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-outline-secondary btn-sm">Anterior</a>
+            {% endif %}
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" class="btn btn-outline-secondary btn-sm">Próxima</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-outline-secondary btn-sm">Última</a>
+            {% endif %}
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

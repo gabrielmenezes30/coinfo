@@ -8,16 +8,16 @@
         <a href="{% url 'criar_projeto' %}" class="btn btn-primary mb-3">Cadastrar Novo Projeto</a>
     {% endif %}
 
-    <ul class="list-group">
-        {% for projeto in projetos %}
+    {% for projeto in projetos %}
+    <ul class="list-group mt-3">
             <li class="list-group-item">
                 <strong>{{ projeto.titulo }}</strong> - {{ projeto.descricao }}
                 <br>
                 <small><strong>Professor responsável:</strong> {{ projeto.professor }}</small>
             </li>
+        </ul>
         {% empty %}
-            <li class="list-group-item">Nenhum projeto cadastrado.</li>
+        <li class="list-group-item">Nenhum projeto cadastrado.</li>
         {% endfor %}
-    </ul>
 </div>
 {% endblock %}

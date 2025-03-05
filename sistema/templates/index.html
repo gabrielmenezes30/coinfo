@@ -21,9 +21,10 @@
             {% endif %}
 
             <h3 class="text-success fw-bold">Notícias</h3>
+            <a href="{% url 'lista_noticias' %}" class="btn btn-small btn-info text-white">Ver notas as notícias</a>
 
             {% for noticia in noticias %}
-            <div class="card mb-4 border-0 shadow-sm rounded-3 bg-light">
+            <div class="card mb-4 border-0 shadow-sm rounded-3 bg-light mt-2">
                 <div class="card-body">
                     <h4 class="text-dark fw-bold">{{ noticia.titulo }}</h4>
                     <p class="text-muted small mt-2"><i class="fas fa-clock"></i>🕐
@@ -35,6 +36,7 @@
             {% empty %}
                 <p class="text-muted">Nenhuma notícia disponível no momento.</p>
             {% endfor %}
+           
         </div>
     </div>
 </div>
